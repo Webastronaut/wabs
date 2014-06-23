@@ -1,0 +1,90 @@
+.tabs {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+}
+
+.tabs > li, .tabs > li > section {
+	display:inline;
+}
+
+.tabs > li > section > h2 {
+	display: inline-block;
+	zoom: 1;
+	font-weight:normal;
+	cursor:pointer;
+	padding:10px;
+	margin:0;
+	height:30px;
+	background:white;
+	border:solid 1px black;
+	position:relative;
+	z-index:0;
+	top:2px;
+}
+
+.tabs > li > section > .active {
+	border-bottom:none;
+	z-index:2;
+}
+
+.tabs > li > section > div {
+	display:none;
+	background:white;
+	float:left;
+	border-top:solid 1px black;
+	position:relative;
+	z-index:1;
+}
+
+.tabs > li > section > .active + div {
+	display:block;
+}
+
+@media screen and (max-width:640px) {
+	.tabs > li, .tabs > li > section, .tabs > li > section > div {
+		display:block;
+		float:none;
+	}
+
+	.tabs > li {
+		margin-bottom:10px;
+		display:block;
+	}
+
+	.tabs > li > section > h2, .tabs > li > section > div {
+		-webkit-box-sizing:border-box;
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+	}
+
+	.tabs > li > section > h2 {
+		cursor:pointer;
+		width:100%;
+		top:0;
+		height:auto;
+	}
+
+	.tabs > li > section > h2:after {
+		content:'+';
+		float:right;
+	}
+
+	.tabs > li > section > .active {
+		border-bottom:solid 1px black;
+	}
+
+	.tabs > li > section > .active:after {
+		content:'-';
+	}
+
+	.tabs > li > section > div {
+		display:none;
+		padding:0;
+		margin:0;
+		border-top:none;
+	}
+
+	.tabs > li > section > div > :first-child { margin-top:0; }
+}
