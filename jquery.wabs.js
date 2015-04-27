@@ -14,6 +14,7 @@
 				$tabHeader : '',
 				$tabContents : '',
 				activeClass : 'active',
+				offsetAnimation: false,
 				offsetToTabHeader : 10,
 				scrollDelay : 200,
 				scrollSpeed : 200,
@@ -37,10 +38,12 @@
 
 			e.preventDefault();
 
-			self.$tabHeader.not($that).removeClass();
+			self.$tabHeader.not($that).removeClass(self.activeClass);
 			$that.addClass(self.activeClass);
 
-			_.moveToPosition.call($that);
+			if(self.offsetAnimation){
+				_.moveToPosition.call($that);
+			}
 		};
 
 		/** Scroll document to opened tab header
@@ -54,7 +57,7 @@
 
 			setTimeout(function() {
 				$('html, body').stop(true, true).animate({
-					scrollTop : ($that.position().top - self.offsetToTabHeader)
+					scrollTop : ($that.offset().top - self.offsetToTabHeader)
 				}, self.scrollSpeed);
 			}, self.scrollDelay);
 		};
@@ -66,7 +69,6 @@
 		 */
 		self.init = function() {
 			var hash = window.location.hash.substr(1);
-
 			if(options.length !== 0) {
 				$.extend(self, options);
 			}
@@ -74,13 +76,17 @@
 			self.$tabHeader.each(function(i) {
 				var $that = $(this);
 
+
 				if($that.attr('id') === hash) {
 					self.initActive = i;
 				}
 			});
 
 			self.$tabHeader.on('click', _.showTab);
-			self.$tabHeader.eq(self.initActive).addClass(self.activeClass);
+
+			if(self.initActive !== false){
+				self.$tabHeader.eq(self.initActive).addClass(self.activeClass);
+			}
 
 			return self.$that;
 		};
